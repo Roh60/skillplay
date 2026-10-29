@@ -1,0 +1,55 @@
+SkillPlay India source audit
+Date: 2026-10-26
+
+Verified by source inspection:
+- Kotlin + Jetpack Compose Android app
+- Room local persistence
+- Existing screens/navigation retained
+- 38 QuizQuestion records found after adding 16 quiz questions in QuestionBank.kt
+- 7 lesson records found in LessonBank.kt
+- 7 base EnglishExercise records + 12 QuicklishNonAiContent + 26 EnglishExpansionContent + 12 DailyUseSentenceContent = 57 total bundled English exercises across 13 tracks
+- 3 default community posts found in DefaultCommunityData.kt
+- Firebase Google services plugin configured with missing-config warning strategy
+- No Gemini AI dependency or AI request flow is used by the app
+- Firebase Auth/Firestore dependencies are commented out
+- google-services.json absent from the ZIP
+- gradlew, gradlew.bat and gradle-wrapper.jar absent from the ZIP
+- Build/test not run: no Gradle executable/wrapper and no network access to retrieve the official wrapper/distribution
+
+Changes applied in this update:
+- Room destructive migration fallback removed
+- Daily challenge claim/profile reward made transactional
+- English exercise XP awarded only on first completion
+- Community author blocking implemented
+- Community post/comment input validation added
+- Related comments removed with a deleted post
+- New local profile starts with zero XP/streak
+- Added Daily Learning Toolkit screen: local daily checklist, word of the day, revision quiz shortcuts, career/interview prompts, and local progress summary
+- Added Home screen entry point to Daily Learning Toolkit
+- No AI API key is required
+
+Important: static source review is not equivalent to a successful Android build or device test.
+
+
+Study Boost additions: StudyBoostScreen.kt and AppScreen.StudyBoost route; Home screen entry added. Tracks quiz wrong-question IDs locally to surface weak categories; supports manual weak-topic marks and repeat quizzes; searchable question bookmarks; save/delete notes; weekly local correct-answer points and quiz count; local group membership; five-minute countdown and daily completion marker. Reset clears Study Boost preferences. Live weekly leaderboard, comparison with other users, shared group chat and cross-device sync require Firebase/backend and authentication. No Gemini/AI dependency added. Android build not verified because project has no Gradle wrapper.
+
+
+Quicklish-style non-AI additions in this package:
+- Six additional tracks: Think in English, Sentence Builder, Sentence Practice, Sentence Structure, Paragraph Writing, IELTS-style prompts
+- 13 English learning tracks total
+- Vocabulary favorites stored in SharedPreferences and favorites-only filter
+- Android Text-to-Speech for listening to prompts/sample answers; no speech recognition or pronunciation scoring
+- No Gemini or other generative AI API calls
+- App content is original, bundled practice content; not copied from the referenced app
+
+English curriculum update (2026-10-26): Added EnglishExpansionContent.kt with 26 original fixed offline exercises and included it in EnglishPracticeBank. English hub heading updated to 13 tracks. Pure Kotlin data-layer compile check passed for EnglishExercise.kt + EnglishPracticeBank.kt + QuicklishNonAiContent.kt + EnglishExpansionContent.kt. Full Android/Compose Gradle build is not verified because the project still lacks gradlew/gradle-wrapper.jar.
+
+
+Final source-level QA (2026-10-29):
+- Fixed stale unit-test expectation from 7 English tracks to 13.
+- Added English exercise integrity checks and assertions for all 12 daily-use conversation exercises.
+- Pure Kotlin data-layer compile succeeded. Runtime integrity check: 13 tracks, 57 exercises, 12 daily-use exercises, 57 unique IDs, all daily-use IDs integrated, and no invalid MCQ option counts/indexes found.
+- Full Android Gradle build/test and device QA remain unverified because no Gradle executable/wrapper JAR or Android SDK build environment was available and external Gradle download failed due DNS/network.
+
+
+Interactive GK quiz update (2026-10-29): Added 16 bilingual GK questions based on the two quiz sets; all have four options, answer keys, explanations and source URLs. Existing quiz engine supports single-answer MCQs, so the chat's True/False and multi-select concepts were adapted to four-option single-answer questions. Pure Kotlin QuestionBank/model compile check passed; full Android Gradle build and device testing remain unverified.

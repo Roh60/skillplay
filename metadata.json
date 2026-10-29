@@ -1,0 +1,11 @@
+{
+  "name": "SkillPlay India",
+  "description": "Daily challenges, GK, reasoning, English practice, and practical skills learning app for India.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_LOCAL_LEARNING",
+    "MAJOR_CAPABILITY_QUIZZES",
+    "MAJOR_CAPABILITY_ENGLISH_PRACTICE",
+    "MAJOR_CAPABILITY_COMMUNITY"
+  ]
+}
